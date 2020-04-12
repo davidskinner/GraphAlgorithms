@@ -5,9 +5,17 @@ public // Vertex Class
 class Vertex<T>
 {
 	long id;
+	int x;
+	int y;
 	private T data;
 	private List<Edge<T>> edges = new ArrayList<>();
 	private List<Vertex<T>> adjacentVertices = new ArrayList<>();
+
+	Vertex(int x, int y)
+	{
+		this.x = x;
+		this.y = y;
+	}
 
 	Vertex(long id)
 	{
