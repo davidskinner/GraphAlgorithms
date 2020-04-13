@@ -51,19 +51,18 @@ class Graph<T>
 
 		for (long i = 0; i < total; i++)
 		{
-			if (i % width != 1 && i + 1 < total)
+			if (i % width < width-1 && i + 1 < total)
 			{
+				// this addEdge adds an edge in both directions
 				addEdge(i, i + 1, 1);
-				addEdge(i, i + 1, 1);
+				addEdge(i+1,i,1);
 			}
-
-			if()
-
-			//			if(i + height < total)
-			//				addEdge(i, i+height);
+			if (i + height < total)
+			{
+				addEdge(i, i + height, 1);
+				addEdge(i + height,i,1);
+			}
 		}
-
-
 	}
 
 
@@ -130,9 +129,9 @@ class Graph<T>
 		allEdges.add(edge);
 		// add edge for both directions
 		adjacencyMatrix[((int) vertex1.getId())][((int) vertex2.getId())] = edge.weight;
-		adjacencyMatrix[((int) vertex2.getId())][((int) vertex1.getId())] = edge.weight;
+//		adjacencyMatrix[((int) vertex2.getId())][((int) vertex1.getId())] = edge.weight;
 		map.put(String.valueOf(vertex1) + String.valueOf(vertex2), edge);
-		map.put(String.valueOf(vertex2) + String.valueOf(vertex1), edge);
+//		map.put(String.valueOf(vertex2) + String.valueOf(vertex1), edge);
 		vertex1.addAdjacentVertex(edge, vertex2);
 		if (!isDirected)
 		{
@@ -208,11 +207,18 @@ class Graph<T>
 	public String printAdjacencyMatrix()
 	{
 		StringBuilder builder = new StringBuilder();
-		for (double[] matrix : adjacencyMatrix)
+		builder.append("   ");
+		for (int i = 0; i <adjacencyMatrix.length; i++)
 		{
+			builder.append(i).append("  ");
+		}
+		builder.append("\n");
+		for (int i = 0; i < adjacencyMatrix.length; i++)
+		{
+			builder.append(i).append("| ");
 			for (int j = 0; j < adjacencyMatrix.length; j++)
 			{
-				builder.append((int)matrix[j]).append(" ");
+				builder.append((int) adjacencyMatrix[i][j]).append("  ");
 			}
 			builder.append("\n");
 		}
